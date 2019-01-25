@@ -18,7 +18,12 @@ Rails.application.routes.draw do
       end
 
 #-------------------------------------------------------------------
-      resources :customers, only: [:index, :show]
+      scope module: 'customers' do
+        resources :customers, only: [:index, :show] do
+          get '/invoices', to: 'invoices#index'
+          get '/transactions', to: 'transactions#index'
+        end
+      end
 
 #--------------------------------------------------------------------
       scope module: 'invoices' do
@@ -30,9 +35,13 @@ Rails.application.routes.draw do
           get '/merchant', to: 'merchant#show'
         end
       end
-#----------------------------------------------------------------------
 
-      resources :transactions, only: [:index, :show]
+#----------------------------------------------------------------------
+      scope module: 'transactions' do
+        resources :transactions, only: [:index, :show] do
+          get '/invoice', to: 'invoice#show'
+        end
+      end
 
 #------------------------------------------------------------------------
       scope module: 'invoice_items' do
