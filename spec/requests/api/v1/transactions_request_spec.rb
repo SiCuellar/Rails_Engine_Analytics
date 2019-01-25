@@ -8,7 +8,7 @@ describe "Transactions API" do
     transactions = JSON.parse(response.body)
 
     expect(response).to be_successful
-    expect(transactions.count).to eq(3)
+    expect(transactions["data"].count).to eq(3)
   end
 
   it "can show one specific transaction " do
@@ -18,6 +18,6 @@ describe "Transactions API" do
     transaction = JSON.parse(response.body)
 
     expect(response).to be_successful
-    expect(transaction["id"]).to eq(id)
+    expect(transaction["data"]["id"].to_i).to eq(id)
   end
 end
