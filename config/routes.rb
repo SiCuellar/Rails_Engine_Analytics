@@ -9,23 +9,27 @@ Rails.application.routes.draw do
         end
       end
 
-      namespace :merchants do
-        # get '/random', to: 'random#show'
-        # get '/find', to: 'find#show'
-        # get '/find_all', to: 'find#index'
-        # get '/most_revenue', to: 'most_revenue#index'
-        # get '/most_items', to: 'most_items#index'
-        # get '/revenue', to: 'revenue#index'
-      end
 # ----------------------------------------------------------------
+      scope module: 'items' do
+        resources :items, only: [:index, :show] do
+          get '/invoice_items', to: 'invoice_items#index'
+          get '/merchant', to: 'merchant#show'
+        end
+      end
 
-      resources :items, only: [:index, :show]
-
-
-
+#-------------------------------------------------------------------
       resources :customers, only: [:index, :show]
-
-      resources :invoices, only: [:index, :show]
+      
+#--------------------------------------------------------------------
+      scope module: 'invoices' do
+        resources :invoices, only: [:index, :show] do
+          get '/transactions', to: 'transactions#index'
+          get '/invoice_items', to: 'invoice_items#index'
+          get '/items', to: 'items#index'
+          get '/customer', to: 'customer#show'
+          get '/merchant', to: 'merchant#show'
+        end
+      end
 
       resources :transactions, only: [:index, :show]
 
