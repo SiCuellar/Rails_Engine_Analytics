@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
 #-------------------------------------------------------------------
       resources :customers, only: [:index, :show]
-      
+
 #--------------------------------------------------------------------
       scope module: 'invoices' do
         resources :invoices, only: [:index, :show] do
@@ -30,6 +30,7 @@ Rails.application.routes.draw do
           get '/merchant', to: 'merchant#show'
         end
       end
+#----------------------------------------------------------------------
 
       resources :transactions, only: [:index, :show]
 
