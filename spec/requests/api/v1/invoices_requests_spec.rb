@@ -8,7 +8,7 @@ describe "Invoices API" do
     invoices = JSON.parse(response.body)
 
     expect(response).to be_successful
-    expect(invoices.count).to eq(3)
+    expect(invoices["data"].count).to eq(3)
   end
 
   it "can show one specific invoice " do
@@ -18,6 +18,6 @@ describe "Invoices API" do
     invoice = JSON.parse(response.body)
 
     expect(response).to be_successful
-    expect(invoice["id"]).to eq(id)
+    expect(invoice["data"]["id"].to_i).to eq(id)
   end
 end

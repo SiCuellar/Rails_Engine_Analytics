@@ -8,7 +8,7 @@ describe "Customers API" do
     customers = JSON.parse(response.body)
 
     expect(response).to be_successful
-    expect(customers.count).to eq(3)
+    expect(customers["data"].count).to eq(3)
   end
 
   it "can show one specific customer " do
@@ -18,6 +18,6 @@ describe "Customers API" do
     customer = JSON.parse(response.body)
 
     expect(response).to be_successful
-    expect(customer["id"]).to eq(id)
+    expect(customer["data"]["id"].to_i).to eq(id)
   end
 end
