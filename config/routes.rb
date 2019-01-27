@@ -74,6 +74,15 @@ Rails.application.routes.draw do
       end
 
 #----------------------------------------------------------------------
+      namespace :transactions do
+        get '/random', to: 'random#show'
+        get '/find', to: 'find#show'
+        get '/find_all', to: 'find#index'
+        # get '/most_revenue', to: 'most_revenue#index'
+        # get '/most_items', to: 'most_items#index'
+        # get '/revenue', to: 'revenue#index'
+      end
+
       scope module: 'transactions' do
         resources :transactions, only: [:index, :show] do
           get '/invoice', to: 'invoice#show'
