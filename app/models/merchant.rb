@@ -18,4 +18,10 @@ class Merchant < ApplicationRecord
     .order("sum(quantity) desc")
     .limit(number)
   end
+
+  def self.total_revenue_by_date(date)
+    joins(:invoices, :invoice_items)
+    .where(invoice_items: {created_at: date})
+    .sum("quantity * unit_price")
+  end
 end
