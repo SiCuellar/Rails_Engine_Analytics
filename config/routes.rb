@@ -90,13 +90,21 @@ Rails.application.routes.draw do
       end
 
 #------------------------------------------------------------------------
+      namespace :invoice_items do
+        get '/random', to: 'random#show'
+        get '/find', to: 'find#show'
+        get '/find_all', to: 'find#index'
+        # get '/most_revenue', to: 'most_revenue#index'
+        # get '/most_items', to: 'most_items#index'
+        # get '/revenue', to: 'revenue#index'
+      end
+
       scope module: 'invoice_items' do
         resources :invoice_items, only: [:index, :show] do
           get '/invoice', to: 'invoice#show'
           get '/item', to: 'item#show'
         end
       end
-
     end
   end
 end
