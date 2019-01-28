@@ -12,4 +12,11 @@ class Item < ApplicationRecord
     .order("sum(invoice_items.quantity * invoice_items.unit_price) desc")
     .limit(number)
   end
+
+  def self.top_item_sold_quant(number)
+    joins(:invoice_items)
+    .group(:id)
+    .order("sum(invoice_items.quantity) desc")
+    .limit(number)
+  end
 end
