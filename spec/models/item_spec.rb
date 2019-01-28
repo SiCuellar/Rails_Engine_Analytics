@@ -60,5 +60,25 @@ RSpec.describe Item, type: :model do
       expect(top_items[1].name).to eq("mid")
       expect(top_items.length).to eq(2)
     end
+
+    it ".best_date" do
+      customer = create(:customer)
+
+      merchant_1 = create(:merchant)
+
+      item_1 = create(:item, merchant_id: merchant_1.id, name: "top")
+
+      invoice_1 = create(:invoice, merchant_id: merchant_1.id, customer_id: customer.id, created_at: "2012-03-27 14:54:09 UTC")
+      invoice_2 = create(:invoice, merchant_id: merchant_1.id, customer_id: customer.id, created_at: "2012-03-27 14:54:09 UTC")
+      invoice_3 = create(:invoice, merchant_id: merchant_1.id, customer_id: customer.id, created_at: "2015-03-27 14:54:09 UTC")
+
+      invoice_item_1 = create(:invoice_item, item_id: item_1.id, invoice_id: invoice_1.id, quantity: 5, unit_price: 20, created_at: "2012-03-27 14:54:09 UTC")
+      invoice_item_2 = create(:invoice_item, item_id: item_1.id, invoice_id: invoice_2.id, quantity: 2, unit_price: 20, created_at: "2012-03-27 14:54:09 UTC")
+      invoice_item_3 = create(:invoice_item, item_id: item_1.id, invoice_id: invoice_3.id, quantity: 1, unit_price: 20, created_at: "2015-03-27 14:54:09 UTC")
+
+      best_item_day = item_1.best_date
+
+      expect(best_item_day).to eq("2012-03-27 14:54:09 UTC")
+    end
   end
 end
